@@ -40,7 +40,11 @@ enum control_mode_t : uint8_t {
     SURFACE =       9,  // automatically return to surface, pilot maintains horizontal control
     POSHOLD =      16,  // automatic position hold with manual override, with automatic throttle
     MANUAL =       19,  // Pass-through input with no stabilization
-    MOTOR_DETECT = 20   // Automatically detect motors orientation
+    MOTOR_DETECT = 20,   // Automatically detect motors orientation
+    HDHOLD =       21,  // automatic heading hold with manual depth/throttle mode
+    AUTO_DIVE =    22,  // automatic diving mode
+    AUTO_DIVE_CIRCLE = 23,   // automatic circle diving mode
+    SHINGUIDED =   24,  // guided mode for lua script 
 };
 
 // Acro Trainer types
@@ -71,6 +75,12 @@ enum GuidedMode {
     Guided_Velocity,
     Guided_PosVel,
     Guided_Angle,
+};
+
+// Shin_guided mode
+enum ShinGuidedMode {
+    Auto_DIVE,
+    DIVE_Completed,
 };
 
 // RTL states

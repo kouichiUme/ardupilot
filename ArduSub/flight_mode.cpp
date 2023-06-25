@@ -58,6 +58,22 @@ bool Sub::set_mode(control_mode_t mode, ModeReason reason)
         success = motordetect_init();
         break;
 
+    case HDHOLD:
+        success = hdhold_init();
+        break;
+
+    case AUTO_DIVE:
+        success = auto_dive_init();
+        break;
+    
+    case AUTO_DIVE_CIRCLE:
+        success = auto_dive_circle_init();
+        break;
+
+    case SHINGUIDED:
+        success = shin_guided_init();
+        break;
+
     default:
         success = false;
         break;
@@ -150,6 +166,22 @@ void Sub::update_flight_mode()
         motordetect_run();
         break;
 
+    case HDHOLD:
+        hdhold_run();
+        break;
+
+    case AUTO_DIVE:
+        auto_dive_run();
+        break;
+    
+    case AUTO_DIVE_CIRCLE:
+        auto_dive_circle_run();
+        break;
+
+    case SHINGUIDED:
+        shin_guided_run();
+        break;
+
     default:
         break;
     }
@@ -208,6 +240,7 @@ bool Sub::mode_allows_arming(control_mode_t mode, bool arming_from_gcs)
         || mode == ALT_HOLD
         || mode == POSHOLD
         || (arming_from_gcs&& mode == GUIDED)
+        || mode == HDHOLD
     );
 }
 
