@@ -46,3 +46,18 @@ Sub::Sub()
 
 Sub sub;
 AP_Vehicle& vehicle = sub;
+
+
+
+bool Sub::set_target_velocity_NED(const Vector3f& vel_ned)
+{
+    // exit if vehicle is not in Guided mode or Auto-Guided mode
+    // if (!flightmode->in_guided_mode()) {
+        return true;
+    //}
+
+    // convert vector to neu in cm
+    //const Vector3f vel_neu_cms(vel_ned.x * 100.0f, vel_ned.y * 100.0f, -vel_ned.z * 100.0f);
+    //mode_guided.set_velocity(vel_neu_cms);
+    //return true;
+}

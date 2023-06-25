@@ -553,6 +553,7 @@ private:
     bool verify_circle(const AP_Mission::Mission_Command& cmd);
 #if NAV_GUIDED == ENABLED
     bool verify_nav_guided_enable(const AP_Mission::Mission_Command& cmd);
+    bool set_target_velocity_NED(const Vector3f& vel_ned) override;
 #endif
     bool verify_nav_delay(const AP_Mission::Mission_Command& cmd);
 
