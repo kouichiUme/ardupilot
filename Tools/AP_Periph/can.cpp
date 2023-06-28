@@ -1600,7 +1600,7 @@ void AP_Periph_FW::hwesc_telem_update()
     const HWESC_Telem::HWESC &t = hwesc_telem.get_telem();
 
     uavcan_equipment_esc_Status pkt {};
-    pkt.esc_index = g.esc_number;
+    pkt.esc_index = g.esc_number[0]; // only supports a single ESC
     pkt.voltage = t.voltage;
     pkt.current = t.current;
     pkt.temperature = C_TO_KELVIN(MAX(t.mos_temperature, t.cap_temperature));
@@ -2392,7 +2392,7 @@ void AP_Periph_FW::can_rangefinder_update(void)
 
 void AP_Periph_FW::can_proximity_update()
 {
-#ifdef HAL_PERIPH_ENABLE_PRX
+#if HAL_PROXIMITY_ENABLED
     if (proximity.get_type(0) == AP_Proximity::Type::None) {
         return;
     }

@@ -919,7 +919,6 @@ class ChibiOSHWDef(object):
         else:
             f.write('#define HAL_USE_SDC FALSE\n')
             self.build_flags.append('USE_FATFS=no')
-            self.env_vars['DISABLE_SCRIPTING'] = True
         if 'OTG1' in self.bytype:
             if self.get_mcu_config('STM32_OTG2_IS_OTG1', False) is not None:
                 f.write('#define STM32_USB_USE_OTG2                  TRUE\n')
@@ -1363,6 +1362,7 @@ INCLUDE common_mixf.ld
 ''' % (flash_base, flash_length, ext_flash_base, ext_flash_length, ram0_start, ram0_len))
         else:
             self.env_vars['HAS_EXTERNAL_FLASH_SECTIONS'] = 1
+            self.build_flags.append('COPY_VECTORS_TO_RAM=yes')
             f.write('''/* generated ldscript.ld */
 MEMORY
 {
@@ -3255,6 +3255,14 @@ INCLUDE common.ld
 
 #ifndef NOTIFY_LED_OVERRIDE_DEFAULT
 #define NOTIFY_LED_OVERRIDE_DEFAULT 1       // rgb_source_t::mavlink
+#endif
+
+#ifndef HAL_PROXIMITY_ENABLED
+#define HAL_PROXIMITY_ENABLED 0
+#endif
+
+#ifndef AP_SCRIPTING_ENABLED
+#define AP_SCRIPTING_ENABLED 0
 #endif
 
 // end AP_Periph defaults

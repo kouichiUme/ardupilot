@@ -86,11 +86,6 @@ def _set_build_context_variant(board):
             continue
         c.variant = board
 
-# run Tools/gittools/submodule-sync.sh to sync submodules as well at distclean
-@conf
-def distclean(ctx):
-    subprocess.call(['Tools/gittools/submodule-sync.sh'])
-
 def init(ctx):
     # Generate Task List, so that VS Code extension can keep track
     # of changes to possible build targets
@@ -150,6 +145,11 @@ def options(opt):
         action='store_true',
         default=False,
         help='build with -Werror.')
+
+    g.add_option('--disable-Werror',
+        action='store_true',
+        default=True,
+        help='Disable -Werror.')
     
     g.add_option('--toolchain',
         action='store',
@@ -533,9 +533,11 @@ def configure(cfg):
     cfg.start_msg('Scripting')
     if cfg.options.disable_scripting:
         cfg.end_msg('disabled', color='YELLOW')
-    else:
+    elif cfg.options.enable_scripting:
         cfg.end_msg('enabled')
-        cfg.recurse('libraries/AP_Scripting')
+    else:
+        cfg.end_msg('maybe')
+    cfg.recurse('libraries/AP_Scripting')
 
     cfg.recurse('libraries/AP_GPS')
 
@@ -588,6 +590,11 @@ def configure(cfg):
 
     # Always use system extensions
     cfg.define('_GNU_SOURCE', 1)
+
+    if cfg.options.Werror:
+        # print(cfg.options.Werror)
+        if cfg.options.disable_Werror:
+            cfg.options.Werror = False
 
     cfg.write_config_header(os.path.join(cfg.variant, 'ap_config.h'), guard='_AP_CONFIG_H_')
 

@@ -42,6 +42,10 @@ enum control_mode_t : uint8_t {
     MANUAL =       19,  // Pass-through input with no stabilization
     MOTOR_DETECT = 20,   // Automatically detect motors orientation
     CIRCLE8 =       100   // automatic circular flight with automatic throttle
+    HDHOLD =       21,  // automatic heading hold with manual depth/throttle mode
+    AUTO_DIVE =    22,  // automatic diving mode
+    AUTO_DIVE_CIRCLE = 23,   // automatic circle diving mode
+    SHINGUIDED =   24,  // guided mode for lua script 
 };
 
 // Acro Trainer types
@@ -72,6 +76,12 @@ enum GuidedMode {
     Guided_Velocity,
     Guided_PosVel,
     Guided_Angle,
+};
+
+// Shin_guided mode
+enum ShinGuidedMode {
+    Auto_DIVE,
+    DIVE_Completed,
 };
 
 // RTL states

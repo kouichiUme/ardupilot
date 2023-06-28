@@ -240,6 +240,9 @@ private:
     // Guided
     GuidedMode guided_mode;  // controls which controller is run (pos or vel)
 
+    //Shin_guided
+    ShinGuidedMode shinguided_mode;   //controls which controller is run
+
     // Circle
     bool circle_pilot_yaw_override; // true if pilot is overriding yaw
 
@@ -461,6 +464,9 @@ private:
     void guided_limit_set(uint32_t timeout_ms, float alt_min_cm, float alt_max_cm, float horiz_max_cm);
     void guided_limit_init_time_and_pos();
     bool guided_limit_check();
+    void auto_dive_control_run();
+
+    bool do_user_takeoff_start(float takeoff_alt_cm);
 
     bool poshold_init(void);
     void poshold_run();
@@ -470,6 +476,16 @@ private:
 
     bool stabilize_init(void);
     void stabilize_run();
+    bool hdhold_init(void);
+    void hdhold_run();
+    bool auto_dive_init(bool ignore_checks = false);
+    void auto_dive_run();
+    bool auto_dive_circle_init(bool ignore_checks = false);
+    void auto_dive_circle_run();
+
+    bool shin_guided_init(bool ignore_checks = false);
+    void shin_guided_run();
+    
     void control_depth();
     bool manual_init(void);
     void manual_run();
@@ -555,6 +571,7 @@ private:
     bool verify_circle(const AP_Mission::Mission_Command& cmd);
 #if NAV_GUIDED == ENABLED
     bool verify_nav_guided_enable(const AP_Mission::Mission_Command& cmd);
+    bool set_target_velocity_NED(const Vector3f& vel_ned) override;
 #endif
     bool verify_nav_delay(const AP_Mission::Mission_Command& cmd);
 

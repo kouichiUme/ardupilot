@@ -181,6 +181,22 @@ void Sub::handle_jsbutton_press(uint8_t _button, bool shift, bool held)
         set_mode(POSHOLD, ModeReason::RC_COMMAND);
         break;
 
+    case JSButton::button_function_t::k_mode_hdhold:
+        set_mode(HDHOLD, ModeReason::RC_COMMAND);
+        break;
+
+    case JSButton::button_function_t::k_mode_auto_dive:
+        set_mode(AUTO_DIVE, ModeReason::RC_COMMAND);
+        break;
+
+    case JSButton::button_function_t::k_mode_auto_dive_circle:
+        set_mode(AUTO_DIVE_CIRCLE, ModeReason::RC_COMMAND);
+        break;
+
+    case JSButton::button_function_t::k_mode_shinguided:
+        set_mode(SHINGUIDED, ModeReason::RC_COMMAND);
+        break;
+
     case JSButton::button_function_t::k_mount_center:
 #if HAL_MOUNT_ENABLED
         camera_mount.set_angle_target(0, 0, 0, false);
