@@ -41,6 +41,7 @@ bool Sub::circle8_init()
     gcs().send_text( MAV_SEVERITY_DEBUG, "distance judge: %f(m)",   Circle8_Define_DistanceJudge );
     gcs().send_text( MAV_SEVERITY_DEBUG, "climb rate: %f(cm/s)",    Circle8_Define_Crimb_rate );
 
+
     camera.init();
     camera.configure(0, 100, 10, 100, 0, 0, 1);
     camera.take_picture(0);
