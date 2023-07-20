@@ -2,6 +2,8 @@
 # encoding: utf-8
 
 def configure(ctx):
+        ctx.env['CFLAGS'] = ['-lprofile']
+
 def build(bld):
     vehicle = bld.path.name
     bld.ap_stlib(
