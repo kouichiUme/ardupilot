@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+def configure(ctx):
 def build(bld):
     vehicle = bld.path.name
     bld.ap_stlib(
