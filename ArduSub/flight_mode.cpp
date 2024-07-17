@@ -36,6 +36,10 @@ bool Sub::set_mode(control_mode_t mode, ModeReason reason)
         success = circle_init();
         break;
 
+    case CIRCLE8:
+        success = circle8_init();
+        break;
+
     case GUIDED:
         success = guided_init();
         break;
@@ -56,6 +60,22 @@ bool Sub::set_mode(control_mode_t mode, ModeReason reason)
 
     case MOTOR_DETECT:
         success = motordetect_init();
+        break;
+
+    case HDHOLD:
+        success = hdhold_init();
+        break;
+
+    case AUTO_DIVE:
+        success = auto_dive_init();
+        break;
+    
+    case AUTO_DIVE_CIRCLE:
+        success = auto_dive_circle_init();
+        break;
+
+    case SHINGUIDED:
+        success = shin_guided_init();
         break;
 
     default:
@@ -128,6 +148,10 @@ void Sub::update_flight_mode()
         circle_run();
         break;
 
+    case CIRCLE8:
+        circle8_run();
+        break;
+
     case GUIDED:
         guided_run();
         break;
@@ -148,6 +172,22 @@ void Sub::update_flight_mode()
 
     case MOTOR_DETECT:
         motordetect_run();
+        break;
+
+    case HDHOLD:
+        hdhold_run();
+        break;
+
+    case AUTO_DIVE:
+        auto_dive_run();
+        break;
+    
+    case AUTO_DIVE_CIRCLE:
+        auto_dive_circle_run();
+        break;
+
+    case SHINGUIDED:
+        shin_guided_run();
         break;
 
     default:
@@ -176,6 +216,7 @@ bool Sub::mode_requires_GPS(control_mode_t mode)
     case AUTO:
     case GUIDED:
     case CIRCLE:
+    case CIRCLE8:
     case POSHOLD:
         return true;
     default:
@@ -208,6 +249,7 @@ bool Sub::mode_allows_arming(control_mode_t mode, bool arming_from_gcs)
         || mode == ALT_HOLD
         || mode == POSHOLD
         || (arming_from_gcs&& mode == GUIDED)
+        || mode == HDHOLD
     );
 }
 
@@ -218,6 +260,7 @@ void Sub::notify_flight_mode(control_mode_t mode)
     case AUTO:
     case GUIDED:
     case CIRCLE:
+    case CIRCLE8:
     case SURFACE:
         // autopilot modes
         AP_Notify::flags.autopilot_mode = true;
